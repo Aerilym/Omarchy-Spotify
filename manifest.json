@@ -103,7 +103,7 @@
           "Off"
         ],
         "defaultValue": "On",
-        "description": "When off, album and playlist covers are never downloaded or shown; icon placeholders are shown instead."
+        "description": "When off, covers are never downloaded and the app becomes text-only."
       },
       {
         "key": "showTrackTitle",

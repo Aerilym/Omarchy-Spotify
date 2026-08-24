@@ -2,9 +2,10 @@
 
 ## Unreleased
 - Add a "Show artwork" setting (On by default). When off, album and playlist
-  covers are never downloaded or shown. Lists, now-playing, detail pages, and the
-  mini-player show icon placeholders instead. Lyrics plugins keep receiving
-  cover URLs.
+  covers are never downloaded and the app becomes text-only: artwork tiles are
+  removed entirely and their space is given to titles and controls across the
+  mini-player, now-playing card, lists, and detail pages. Lyrics plugins keep
+  receiving cover URLs.
 
 - Reconnect a closed librespot session inside the existing backend process, so
   transient Spotify connection closures no longer tear down the local socket

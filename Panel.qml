@@ -42,6 +42,7 @@ Item {
   property var navigationStack: []
   property string lastContentTab: "home"
   property string restoredPlaylistId: ""
+  readonly property bool artworkVisible: !service || service.artworkEnabled
 
   property string draftDeviceName: "Omarchy Spotify"
   property string draftIdleMinutes: "15"
@@ -3815,11 +3816,15 @@ Item {
               width: Math.max(Style.space(170), Math.min(Style.space(240), playerRow.width * 0.29))
               height: parent.height
               readonly property real metadataSpacing: Style.space(9)
+              readonly property bool artworkVisible: !root.service
+                || root.service.artworkEnabled
 
               BorderSurface {
                 id: nowPlayingArtwork
-                width: Math.min(parent.height, Style.space(68))
+                width: nowPlaying.artworkVisible
+                  ? Math.min(parent.height, Style.space(68)) : 0
                 height: width
+                visible: nowPlaying.artworkVisible
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 radius: Style.cornerRadius
@@ -3853,7 +3858,8 @@ Item {
 
               Column {
                 anchors.left: nowPlayingArtwork.right
-                anchors.leftMargin: nowPlaying.metadataSpacing
+                anchors.leftMargin: nowPlayingArtwork.visible
+                  ? nowPlaying.metadataSpacing : 0
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: Style.space(3)
@@ -4491,8 +4497,10 @@ Item {
             spacing: Style.space(12)
 
             BorderSurface {
-              width: parent.height
+              id: detailArtworkSurface
+              width: visible ? parent.height : 0
               height: width
+              visible: root.artworkVisible
               radius: Style.cornerRadius
               color: Style.selectedFillFor(root.foreground, root.accent)
               borderSpec: Border.controlSpec("normal", root.foreground, root.accent)
@@ -4524,8 +4532,9 @@ Item {
             }
 
             Column {
-              width: Math.max(80, parent.width - parent.height - detailActions.width
-                - parent.spacing * 2)
+              width: Math.max(80, parent.width - detailArtworkSurface.width
+                - detailActions.width
+                - parent.spacing * (detailArtworkSurface.visible ? 2 : 1))
               anchors.verticalCenter: parent.verticalCenter
               spacing: Style.space(4)
 
@@ -6343,7 +6352,7 @@ Item {
                 selected: root.draftShowArtwork
                 tooltipText: root.draftShowArtwork
                   ? "Album and playlist covers are shown"
-                  : "Covers are never downloaded; icon placeholders are shown instead"
+                  : "Covers are hidden and the space is given to text"
                 onClicked: {
                   root.draftShowArtwork = !root.draftShowArtwork
                   root.persistDraftSettings()
@@ -6352,7 +6361,7 @@ Item {
 
               Text {
                 width: parent.width
-                text: "Turn off to stop downloading album and playlist covers everywhere in the app. Icon placeholders take their place; lyrics plugins keep their own artwork."
+                text: "Turn off to stop downloading album and playlist covers. The app becomes text-only."
                 color: root.muted
                 font.family: root.fontFamily
                 font.pixelSize: Style.font.bodySmall

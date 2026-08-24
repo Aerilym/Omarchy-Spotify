@@ -21,6 +21,7 @@ BorderSurface {
   property bool browseOnActivate: false
   property bool reorderEnabled: false
   property bool reorderDragging: false
+  property bool artworkEnabled: true
   property int reorderDropIndicator: 0
   property bool hovered: hoverHandler.hovered
   property bool actionsExpanded: false
@@ -181,7 +182,7 @@ BorderSurface {
         id: rowArtwork
         anchors.fill: parent
         anchors.margins: Style.space(2)
-        source: root.itemData && root.itemData.imageUrl ? root.itemData.imageUrl : ""
+        source: root.artworkEnabled && root.itemData && root.itemData.imageUrl ? root.itemData.imageUrl : ""
         sourceSize.width: 112
         sourceSize.height: 112
         fillMode: Image.PreserveAspectFit

@@ -850,7 +850,8 @@ BarWidget {
             id: popupArtwork
             anchors.fill: parent
             anchors.margins: Style.space(3)
-            source: root.popupOpen && root.spotify ? root.spotify.artUrl : ""
+            source: root.popupOpen && root.spotify && root.spotify.artworkEnabled
+              ? root.spotify.artUrl : ""
             sourceSize.width: 156
             sourceSize.height: 156
             fillMode: Image.PreserveAspectFit

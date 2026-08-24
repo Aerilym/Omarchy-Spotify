@@ -1,11 +1,16 @@
 # Changelog
 
 ## Unreleased
+- Add a "Show artwork" setting (On by default). When off, album and playlist
+  covers are never downloaded or shown. Lists, now-playing, detail pages, and the
+  mini-player show icon placeholders instead. Lyrics plugins keep receiving
+  cover URLs.
 
 - Reconnect a closed librespot session inside the existing backend process, so
   transient Spotify connection closures no longer tear down the local socket
   and MPRIS player. Fall back to the supervised restart after five reconnects
   in ten minutes.
+
 - Stop on an explicit Spotify audio-key rejection instead of rapidly skipping
   through the queue and triggering rate limits, and explain in the bar and
   player that another Spotify Connect device is required.
